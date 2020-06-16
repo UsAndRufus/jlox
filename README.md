@@ -4,7 +4,7 @@ Java implementation of the Lox language, following the [Crafting Interpreters](h
 
 ## Progress
     4.Scanning               ✅
-    5.Representing Code
+    5.Representing Code      ✅
     6.Parsing Expressions
     7.Evaluating Expressions
     8.Statements and State
