@@ -1,0 +1,10 @@
+// hey there
+var ed = 123;
+/* single line */
+ed = ed + 2;
+/* multiline
+oi yeah/ or *** ed;
+hey */
+ed = 35;
+*/
+/*

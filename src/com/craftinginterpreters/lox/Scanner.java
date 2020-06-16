@@ -73,6 +73,8 @@ public class Scanner {
                 if (match('/')) {
                     // A comment goes until the end of the line.
                     while (peek() != '\n' && !isAtEnd()) advance();
+                } else if (match('*')) {
+                    multilineComment();
                 } else {
                     addToken(SLASH);
                 }
@@ -142,6 +144,22 @@ public class Scanner {
         }
 
         addToken(NUMBER, Double.parseDouble(source.substring(start, current)));
+    }
+
+    private void multilineComment() {
+        while (!(peek() == '*' && peekNext() == '/') && !isAtEnd()) {
+            if (peek() == '\n') line++;
+            advance();
+        }
+
+        if (isAtEnd()) {
+            Lox.error(line, "Unterminated multiline comment.");
+            return;
+        }
+
+        // Closing */
+        advance();
+        advance();
     }
 
     private boolean match(char expected) {
