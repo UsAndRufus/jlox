@@ -17,3 +17,4 @@ Java implementation of the Lox language, following the [Crafting Interpreters](h
 ## Extras
 
 - Multiline non-nested comments (ie `/*...*/`)
+- Ternary operator (`a ? b : c`). Supports nested ternary operators in the middle and right branches, but not the left.
