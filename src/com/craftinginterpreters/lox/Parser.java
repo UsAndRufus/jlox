@@ -23,7 +23,22 @@ public class Parser {
     }
 
     private Expr expression() {
-        return equality();
+        return ternaryIf();
+    }
+
+    private Expr ternaryIf() {
+        Expr expr = equality();
+
+        while (match(QUESTION)) {
+            Token operator1 = previous();
+            Expr middle = ternaryIf();
+            consume(COLON, "Expect ':' after ?");
+            Token operator2 = previous();
+            Expr right = ternaryIf();
+            expr = new Expr.Ternary(expr, operator1, middle, operator2, right);
+        }
+
+        return expr;
     }
 
     private Expr equality() {
@@ -32,6 +47,18 @@ public class Parser {
         while (match(BANG_EQUAL, EQUAL_EQUAL)) {
             Token operator = previous();
             Expr right = comparison();
+            expr = new Expr.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
+    private Expr comparison() {
+        Expr expr = addition();
+
+        while (match(GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
+            Token operator = previous();
+            Expr right = addition();
             expr = new Expr.Binary(expr, operator, right);
         }
 
@@ -94,18 +121,6 @@ public class Parser {
         if (check(type)) return advance();
 
         throw error(peek(), message);
-    }
-
-    private Expr comparison() {
-        Expr expr = addition();
-
-        while (match(GREATER, GREATER_EQUAL, LESS, LESS_EQUAL)) {
-            Token operator = previous();
-            Expr right = addition();
-            expr = new Expr.Binary(expr, operator, right);
-        }
-
-        return expr;
     }
 
     private boolean match(TokenType... types) {
