@@ -1,0 +1,8 @@
+var a = 32*32;
+var b = 16*16*16;
+
+if (a >= b) {
+  print "true";
+} else {
+  print "false";
+}
