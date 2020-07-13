@@ -1,0 +1,3 @@
+for (var a = 2; a < 10000; a = a * a) {
+    print a;
+}
