@@ -8,7 +8,7 @@ Java implementation of the Lox language, following the [Crafting Interpreters](h
     6.Parsing Expressions    ✅
     7.Evaluating Expressions ✅
     8.Statements and State   ✅
-    9.Control Flow
+    9.Control Flow           ✅
     10.Functions
     11.Resolving and Binding
     12.Classes
