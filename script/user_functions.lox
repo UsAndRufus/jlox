@@ -1,3 +1,4 @@
+print "iterative with no returns:";
 fun fib(n) {
     var l = 0;
     var f = 1;
@@ -10,3 +11,19 @@ fun fib(n) {
 }
 
 fib(10);
+
+print "recursive with returns:";
+fun fib(n) {
+  if (n <= 1) return n;
+  return fib(n - 2) + fib(n - 1);
+}
+
+for (var i = 0; i < 20; i = i + 1) {
+  print fib(i);
+}
+
+fun greet(name) {
+    return "hey there, " + name;
+}
+
+print greet("Ed");
