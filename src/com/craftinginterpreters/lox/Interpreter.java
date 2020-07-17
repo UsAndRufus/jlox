@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     final Environment globals = new Environment();
-    private Environment environment = new Environment();
+    private Environment environment = globals;
 
     Interpreter() {
         globals.define("clock", new LoxCallable() {
