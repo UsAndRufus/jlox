@@ -1,3 +1,9 @@
+fun hey() {
+    print "hey";
+}
+
+hey();
+
 print "iterative with no returns:";
 fun fib(n) {
     var l = 0;
