@@ -1,0 +1,12 @@
+fun fib(n) {
+    var l = 0;
+    var f = 1;
+    for (var i = 0; i <= n; i = i + 1) {
+        print f;
+        var temp = f;
+        f = f + l;
+        l = temp;
+    }
+}
+
+fib(10);
