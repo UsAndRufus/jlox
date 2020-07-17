@@ -41,7 +41,7 @@ public class Parser {
         Token name = consume(IDENTIFIER, "Expects " + kind + " name.");
         consume(LEFT_PAREN, "Expect '(' after " + kind + " name.");
         List<Token> parameters = new ArrayList<>();
-        if (!match(RIGHT_PAREN)) {
+        if (!check(RIGHT_PAREN)) {
             do {
                 if (parameters.size() >= 255) {
                     error(peek(), "Cannot have more than 255 parameters.");
