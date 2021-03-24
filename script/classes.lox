@@ -9,3 +9,17 @@ print DevonshireCream; // Prints "DevonshireCream".
 class Bagel {}
 var bagel = Bagel();
 print bagel; // Prints "Bagel instance".
+
+bagel.topping = "Cream cheese";
+print bagel.topping;
+//print bagel.age;
+
+bagel.topping = "salmon";
+print bagel.topping;
+
+class Topping {}
+var topping = Topping();
+topping.name = "Bacon";
+
+bagel.topping = topping;
+print bagel.topping.name;
