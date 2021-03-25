@@ -43,13 +43,15 @@ public class Parser {
         consume(LEFT_BRACE, "Expect '{' before class body.");
 
         List<Stmt.Function> methods = new ArrayList<>();
+        List<Stmt.Getter> getters = new ArrayList<>();
         while (!check(RIGHT_BRACE) && !isAtEnd()) {
             methods.add(funDeclaration("method"));
+            getters.add(getterDeclaration());
         }
 
         consume(RIGHT_BRACE, "Expect '}' after class body.");
 
-        return new Stmt.Class(name, methods);
+        return new Stmt.Class(name, methods, getters);
     }
 
     private Stmt.Function funDeclaration(String kind) {
@@ -70,6 +72,13 @@ public class Parser {
         consume(LEFT_BRACE, "Expect '{' before " + kind + " body.");
         List<Stmt> body = block();
         return new Stmt.Function(name, parameters, body);
+    }
+
+    private Stmt.Getter getterDeclaration() {
+        Token name = consume(IDENTIFIER, "Expects getter name.");
+        consume(LEFT_BRACE, "Expect '{' before getter body.");
+        List<Stmt> body = block();
+        return new Stmt.Getter(name, body);
     }
 
     private Stmt varDeclaration() {

@@ -255,7 +255,13 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             methods.put(method.name.lexeme, function);
         }
 
-        LoxClass klass = new LoxClass(stmt.name.lexeme, methods);
+        Map<String, LoxFunction> getters = new HashMap<>();
+        for (Stmt.Getter getter : stmt.getters) {
+            LoxFunction function = new LoxFunction(getter, environment, false);
+            methods.put(getter.name.lexeme, function);
+        }
+
+        LoxClass klass = new LoxClass(stmt.name.lexeme, methods, stmt.getters);
         environment.assign(stmt.name, klass);
         return null;
     }
@@ -270,6 +276,12 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     public Void visitFunctionStmt(Stmt.Function stmt) {
         LoxFunction function = new LoxFunction(stmt, environment, false);
         environment.define(stmt.name.lexeme, function);
+        return null;
+    }
+
+    @Override
+    public Void visitGetterStmt(Stmt.Getter stmt) {
+        // Invalid outside of a class, resolver will handle this
         return null;
     }
 
