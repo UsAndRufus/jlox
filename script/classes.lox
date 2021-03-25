@@ -52,3 +52,5 @@ var croissant = Croissant();
 croissant.smell();
 croissant.flavor = "Butter";
 croissant.smell();
+
+print this;
