@@ -53,4 +53,21 @@ croissant.smell();
 croissant.flavor = "Butter";
 croissant.smell();
 
-print this;
+class Donut {
+  init(flavour, price) {
+    this.flavour = flavour;
+    this.price = price;
+  }
+
+  canAfford(totalMoney) {
+    if (totalMoney >= this.price) {
+      print "Can afford a " + this.flavour + " donut!!";
+    } else {
+      print "Sorry, not today :(";
+    }
+  }
+}
+
+var donut = Donut("jam", 1);
+donut.canAfford(0.5);
+donut.canAfford(1);
