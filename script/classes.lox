@@ -12,14 +12,18 @@ print bagel; // Prints "Bagel instance".
 
 bagel.topping = "Cream cheese";
 print bagel.topping;
-//print bagel.age;
-
-bagel.topping = "salmon";
-print bagel.topping;
 
 class Topping {}
 var topping = Topping();
-topping.name = "Bacon";
+topping.name = "salmon";
 
 bagel.topping = topping;
 print bagel.topping.name;
+
+class Bacon {
+  eat() {
+    print "Crunch crunch crunch!";
+  }
+}
+
+Bacon().eat();
