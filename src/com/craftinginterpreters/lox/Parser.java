@@ -46,6 +46,7 @@ public class Parser {
         List<Stmt.Function> getters = new ArrayList<>();
         while (!check(RIGHT_BRACE) && !isAtEnd()) {
             Stmt.Function function = funDeclaration("method");
+            // If we couldn't find a function, maybe it's a getter instead
             if (function == null) {
                 getters.add(getterDeclaration());
             } else {
