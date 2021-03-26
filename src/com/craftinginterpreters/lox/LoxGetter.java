@@ -12,6 +12,11 @@ public class LoxGetter extends LoxFunction {
     }
 
     @Override
+    public int arity() {
+        return 0;
+    }
+
+    @Override
     public String toString() {
         return "gt <" + declaration.name.lexeme + ">";
     }
