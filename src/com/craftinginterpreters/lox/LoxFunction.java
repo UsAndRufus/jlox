@@ -3,8 +3,8 @@ package com.craftinginterpreters.lox;
 import java.util.List;
 
 public class LoxFunction implements LoxCallable {
-    private final Stmt.Function declaration;
-    private final Environment closure;
+    protected final Stmt.Function declaration;
+    protected final Environment closure;
     private final boolean isInitializer;
 
     LoxFunction(Stmt.Function declaration, Environment closure, boolean isInitializer) {
@@ -45,6 +45,6 @@ public class LoxFunction implements LoxCallable {
 
     @Override
     public String toString() {
-        return "fn < " + declaration.name.lexeme + ">";
+        return "fn <" + declaration.name.lexeme + ">";
     }
 }

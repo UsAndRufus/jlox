@@ -1,5 +1,6 @@
 package com.craftinginterpreters.lox;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,8 @@ public class LoxInstance {
         LoxFunction method = klass.findMethod(name.lexeme);
         if (method != null) return method.bind(this);
 
-
+        LoxGetter getter = klass.findGetter(name.lexeme);
+        if (getter != null) return getter.bind(this);
 
         throw new RuntimeError(name,
                 "Undefined property '" + name.lexeme + "'.");

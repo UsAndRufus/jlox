@@ -1,12 +1,19 @@
 class Circle {
+/*
   init(radius) {
     this.radius = radius;
   }
-
   area {
     return 3.141592653 * this.radius * this.radius;
   }
+  */
+
+  formula {
+    return "pi*r^2";
+  }
 }
 
-var circle = Circle(4);
-print circle.area;
+//var circle = Circle(4);
+var circle = Circle();
+print circle.formula;
+//print circle.area;
