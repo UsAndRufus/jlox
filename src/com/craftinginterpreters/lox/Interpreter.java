@@ -111,7 +111,13 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     @Override
     public Object visitGetExpr(Expr.Get expr) {
         Object object = evaluate(expr.object);
-        if (object instanceof LoxInstance) {
+
+        if (object instanceof LoxClass) {
+            LoxFunction classMethod = ((LoxClass) object).findClassMethod(expr.name.lexeme);
+            if (classMethod != null) {
+                return classMethod;
+            }
+        } else if (object instanceof LoxInstance) {
             Object value = ((LoxInstance) object).get(expr.name);
 
             if (value instanceof LoxGetter) {
@@ -267,7 +273,13 @@ public class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             getters.put(getter.name.lexeme, loxGetter);
         }
 
-        LoxClass klass = new LoxClass(stmt.name.lexeme, methods, getters);
+        Map<String, LoxFunction> classMethods = new HashMap<>();
+        for (Stmt.Function classMethod : stmt.classMethods) {
+            LoxFunction function = new LoxFunction(classMethod, environment, false);
+            classMethods.put(classMethod.name.lexeme, function);
+        }
+
+        LoxClass klass = new LoxClass(stmt.name, methods, getters, classMethods);
         environment.assign(stmt.name, klass);
         return null;
     }

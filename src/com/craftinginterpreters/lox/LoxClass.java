@@ -4,14 +4,23 @@ import java.util.List;
 import java.util.Map;
 
 class LoxClass implements LoxCallable {
-    final String name;
+    final Token name;
     private final Map<String, LoxFunction> methods;
     private final Map<String, LoxGetter> getters;
+    private final Map<String, LoxFunction> classMethods;
 
-    LoxClass(String name, Map<String, LoxFunction> methods, Map<String, LoxGetter> getters) {
+    LoxClass(Token name, Map<String, LoxFunction> methods, Map<String, LoxGetter> getters,
+             Map<String, LoxFunction> classMethods) {
         this.name = name;
         this.methods = methods;
         this.getters = getters;
+        this.classMethods = classMethods;
+
+        System.out.println("class methods for " + name.lexeme);
+
+        for (String classMethod : this.classMethods.keySet()) {
+            System.out.println(classMethod);
+        }
     }
 
     LoxFunction findMethod(String name) {
@@ -30,9 +39,17 @@ class LoxClass implements LoxCallable {
         return null;
     }
 
+    LoxFunction findClassMethod(String name) {
+        if (classMethods.containsKey(name)) {
+            return classMethods.get(name);
+        }
+
+        return null;
+    }
+
     @Override
     public String toString() {
-        return name;
+        return name.lexeme;
     }
 
     @Override

@@ -42,24 +42,36 @@ public class Parser {
         Token name = consume(IDENTIFIER, "Expect class name.");
         consume(LEFT_BRACE, "Expect '{' before class body.");
 
+        List<Stmt.Function> classMethods = new ArrayList<>();
         List<Stmt.Function> methods = new ArrayList<>();
         List<Stmt.Function> getters = new ArrayList<>();
         while (!check(RIGHT_BRACE) && !isAtEnd()) {
-            Stmt.Function function = funDeclaration("method");
-            // If we couldn't find a function, maybe it's a getter instead
-            if (function == null) {
-                getters.add(getterDeclaration());
+            // Find class methods
+            Stmt.Function function;
+            if (check(CLASS)) {
+                System.out.println("found class within class");
+                consume(CLASS, "Define class method using class");
+                classMethods.add(funDeclaration("class method"));
             } else {
-                methods.add(function);
+                function = funDeclaration("method");
+
+                // If we couldn't find a function, maybe it's a getter
+                if (function == null) {
+                    getters.add(getterDeclaration());
+                } else {
+                    methods.add(function);
+                }
             }
         }
 
         consume(RIGHT_BRACE, "Expect '}' after class body.");
 
-        return new Stmt.Class(name, methods, getters);
+        System.out.println("Defined " + classMethods.size() + " class methods");
+        return new Stmt.Class(name, methods, getters, classMethods);
     }
 
     private Stmt.Function funDeclaration(String kind) {
+        System.out.println("Declaring " + kind);
         Token name = consume(IDENTIFIER, "Expects " + kind + " name.");
 
         // ie if we're in a class, allow for getters
@@ -87,7 +99,6 @@ public class Parser {
 
     private Stmt.Function getterDeclaration() {
         Token name = previous();
-//        Token name = consume(IDENTIFIER, "Expects getter name.");
         consume(LEFT_BRACE, "Expect '{' before getter body.");
         List<Stmt> body = block();
         return new Stmt.Function(name, new ArrayList<>(), body);
