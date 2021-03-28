@@ -19,3 +19,5 @@ Java implementation of the Lox language, following the [Crafting Interpreters](h
 - Multiline non-nested comments (ie `/*...*/`)
 - Ternary if (see `ternary-if` branch - can parse but not interpret)
 - Getters syntax (see `class-extensions` branch)
+- Class methods (see `class-extensions` branch)
+  - These are not implemented using metaclasses as recommended are potentially a bit broke
