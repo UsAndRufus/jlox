@@ -12,7 +12,7 @@ Java implementation of the Lox language, following the [Crafting Interpreters](h
     10.Functions             ✅
     11.Resolving and Binding ✅
     12.Classes               ✅
-    13.Inheritance
+    13.Inheritance           ✅
 
 ## Extras
 
